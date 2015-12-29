@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd" id="WebApp_ID" version="3.0">
+  <display-name>yao</display-name>
+  <welcome-file-list>
+    <welcome-file>index.html</welcome-file>
+    <welcome-file>index.htm</welcome-file>
+    <welcome-file>index.jsp</welcome-file>
+    <welcome-file>default.html</welcome-file>
+    <welcome-file>default.htm</welcome-file>
+    <welcome-file>default.jsp</welcome-file>
+  </welcome-file-list>
+  
+  <session-config>
+		<session-timeout>30</session-timeout>
+	</session-config>
+	
+	<context-param>
+		<param-name>contextConfigLocation</param-name>
+		<param-value>classpath:applicationContext.xml</param-value>
+	</context-param>
+	
+	<listener>
+		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+	</listener>
+	
+	<!-- 初始化 -->
+	<servlet>  
+		<servlet-name>initial</servlet-name>
+		<servlet-class>com.jiuyi.yao.servlet.InitServlet</servlet-class>  
+		<load-on-startup>10</load-on-startup>  
+	</servlet>
+	
+	<!-- 编码过滤器 -->
+	<filter>
+		<filter-name>encodingFilter</filter-name>
+		<filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
+		<init-param>
+			<param-name>encoding</param-name>
+			<param-value>UTF-8</param-value>
+		</init-param>
+		<init-param>
+			<param-name>forceEncoding</param-name>
+			<param-value>true</param-value>
+		</init-param>
+	</filter>
+	<filter-mapping>
+		<filter-name>encodingFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+	
+	<!-- 文件上传 -->
+	<servlet>  
+		<servlet-name>fileUplod</servlet-name>  
+		<servlet-class>com.jiuyi.yao.servlet.FileUploadServlet</servlet-class>  
+	</servlet> 
+	<servlet-mapping>
+		<servlet-name>fileUplod</servlet-name>
+		<url-pattern>/fileUplod</url-pattern>
+	</servlet-mapping>
+	
+	<!-- API -->
+	<servlet>  
+		<servlet-name>api</servlet-name>  
+		<servlet-class>com.jiuyi.yao.servlet.ApiServlet</servlet-class>  
+	</servlet> 
+	<servlet-mapping>
+		<servlet-name>api</servlet-name>
+		<url-pattern>/api</url-pattern>
+	</servlet-mapping>
+	
+	<!-- shortcut Pay -->
+	<servlet>  
+		<servlet-name>shortcutPay</servlet-name>  
+		<servlet-class>com.jiuyi.yao.servlet.ShortcutPayServlet</servlet-class>  
+	</servlet> 
+	<servlet-mapping>
+		<servlet-name>shortcutPay</servlet-name>
+		<url-pattern>/shortcutPay</url-pattern>
+	</servlet-mapping>
+	
+	<!-- weixin pay notify-->
+	<servlet>  
+		<servlet-name>weixinPayNotify</servlet-name>  
+		<servlet-class>com.jiuyi.yao.servlet.WeixinPayNotifyServlet</servlet-class>  
+	</servlet> 
+	<servlet-mapping>
+		<servlet-name>weixinPayNotify</servlet-name>
+		<url-pattern>/weixinPayNotify</url-pattern>
+	</servlet-mapping>
+</web-app>

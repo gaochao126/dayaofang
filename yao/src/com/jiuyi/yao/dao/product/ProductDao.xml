@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jiuyi.yao.dao.product.ProductDao">
+	<!-- 1.查询所有药品 -->
+	<select id="queryProductList" parameterType="ProductDto" resultType="ProductDto">
+		select a.*, b.prod_format, b.prod_unit, b.prod_pack, b.prod_price, b.prod_sku, c.img_src, c.img_type from Products a 
+		LEFT JOIN Formats b ON a.format_id = b.format_id
+		LEFT JOIN Img c ON a.img_id = c.img_id
+		order by a.prod_id DESC
+	</select> 
+	
+	<!-- 2.根据二级分类查询药品-->
+	<select id="queryProductListBySecond" parameterType="ProductDto" resultType="ProductDto">
+		select a.*, b.prod_format, b.prod_unit, b.prod_pack, b.prod_price, b.prod_sku, c.img_src, c.img_type from Products a 
+		LEFT JOIN Formats b ON a.format_id = b.format_id
+		LEFT JOIN Img c ON a.img_id = c.img_id
+		where a.second_id = #{second_id}
+
+	</select>
+	 
+	<!-- 3.搜索商品 -->
+	<select id="searchProduct" parameterType="ProductDto" resultType="ProductDto">
+		select a.*, b.prod_format, b.prod_unit, b.prod_pack, b.prod_price, b.prod_sku, c.img_src, c.img_type from Products a 
+		LEFT JOIN Formats b ON a.format_id = b.format_id
+		LEFT JOIN Img c ON a.img_id = c.img_id
+	    where  
+		prod_name like '%${prod_name}%'
+		or prod_commonName like '%${prod_name}%' 
+		or prod_pinyin like '%${prod_name}%' 
+		or prod_firstABC like '%${prod_name}%'
+		ORDER BY 1
+		<if test="priceOrderBy != null and priceOrderBy ==0">
+			,b.prod_price DESC
+		</if>
+		 
+		<if test="priceOrderBy != null and priceOrderBy ==1">
+			,b.prod_price ASC
+		</if>
+		
+		<if test="priceOrderBy == null and xlOrderBy == 0">
+			,a.prod_xl DESC
+		</if>
+		
+		<if test="priceOrderBy == null and xlOrderBy == 1">
+			,a.prod_xl ASC
+		</if>
+		
+		<if test="priceOrderBy != null and xlOrderBy == 0">
+			,a.prod_xl DESC
+		</if>
+		
+		<if test="priceOrderBy != null and xlOrderBy == 1">
+			,a.prod_xl DESC
+		</if>  
+	</select> 
+	
+	<!-- 4.根据三级分类查询药品 -->
+	<select id="queryProductListByThird" parameterType="ProductDto" resultType="ProductDto">
+		select a.*, b.prod_format, b.prod_unit, b.prod_pack, b.prod_price, b.prod_sku, c.img_src, c.img_type from Products a 
+		LEFT JOIN Formats b ON a.format_id = b.format_id
+		LEFT JOIN Img c ON a.img_id = c.img_id
+		where a.third_id = #{third_id}
+	</select> 
+	
+	<!-- 5.查询广告药品 -->
+	<select id="queryShowProduct" parameterType="ProductDto" resultType="ProductDto">
+		select a.*, b.prod_format, b.prod_unit, b.prod_pack, b.prod_price, b.prod_sku, c.img_src, c.img_type from Products a 
+		LEFT JOIN Formats b ON a.format_id = b.format_id
+		LEFT JOIN Img c ON a.img_id = c.img_id
+		LIMIT 6
+	</select> 
+	
+	<!-- 6.修改销量 -->
+	<update id="updateProductSales" parameterType="ProductDto">
+		update Products set prod_xl = prod_xl + #{prod_xl} where prod_id = #{prod_id}
+	</update>
+	
+</mapper>

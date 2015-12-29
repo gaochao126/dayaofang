@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jiuyi.yao.dao.customer.CustomerDao">
+	<!-- 1.注册 -->
+	<insert id="register" parameterType="CustomerDto">
+		insert into Customer 
+		(
+			user_id, 		user_username,		user_password,		user_email,		user_tel,
+			user_sex,		user_img,		user_regdate,		user_editdate
+		)
+		values 
+		(
+			#{user_id},		#{user_username},	#{user_password},	#{user_email},	#{user_tel},
+			#{user_sex},	#{user_img},		now(),			now()	
+		)
+	</insert>
+	
+	<!-- 2.编辑 -->
+	<update id="edit" parameterType="CustomerDto">
+		update Customer set user_editdate = now()
+			<if test="user_username != null ">
+				,user_username = #{user_username}
+			</if>
+			<if test="user_tel != null ">
+				,user_tel = #{user_tel}
+			</if>
+			<if test="user_email != null">
+				,user_email = #{user_email}
+			</if>
+			<if test="user_sex != null">
+				,user_sex = #{user_sex}
+			</if>
+			<if test="user_img">
+				,user_img = #{user_img}
+			</if>
+		where user_id = #{user_id}
+	</update>
+	
+	<!-- 3.修改密码 -->
+	<update id="updatePassword" parameterType="CustomerDto">
+		update Customer set user_editdate = now(), user_password = #{user_password}
+			where user_id = #{user_id}
+	</update>
+	
+	<!-- 4.查询用户 -->
+	<select id="queryCustomer" parameterType="CustomerDto" resultType="CustomerDto">
+		select * from Customer
+			where	1=1
+				<if test="user_id != null">
+					and user_id = #{user_id}
+				</if>
+				<if test="user_tel != null">
+					and user_tel = #{user_tel}
+				</if>
+				<if test="user_email != null">
+					and user_email = #{user_email}
+				</if>
+				<if test="user_name != null">
+					and user_username = #{user_username}
+				</if>
+				<if test="user_password != null">
+					and user_password = #{user_password}
+				</if>
+	</select>
+	
+	<!-- 重置密码 -->
+	<update id="resetPassword" parameterType="CustomerDto">
+		update Customer set user_editdate = now(), user_password = #{user_password}
+			where user_tel = #{user_tel}
+	</update>
+</mapper>
