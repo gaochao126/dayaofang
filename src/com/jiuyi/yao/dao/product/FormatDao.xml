@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jiuyi.yao.dao.product.FormatDao">
+	<!-- 1.查询药品规格 -->
+	<select id="queryFormatByProductId" parameterType="FormatDto" resultType="FormatDto">
+		select * from Formats where prod_id = #{prod_id}
+	</select>
+	
+	<!-- 2.减少库存 -->
+	<update id="updateSkuDown" parameterType="FormatDto">
+		update Formats set prod_sku = prod_sku - #{prod_sku} where prod_sku &gt; #{prod_sku} and format_id = #{format_id}
+	</update>
+	
+</mapper>

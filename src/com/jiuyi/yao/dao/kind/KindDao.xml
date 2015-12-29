@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jiuyi.yao.dao.kind.KindDao">
+	
+	<!-- 1.查询二级列表 -->
+	<select id="querySecondListByTypeId" parameterType="KindDto" resultType="KindDto">
+		select * from Seconds 
+	</select>
+	
+	<!-- 2.查询三级列表 -->
+	<select id="queryThirdListBySecondId" parameterType="KindDto" resultType="KindDto">
+		select * from Third where second_id = #{second_id}
+	</select>
+	
+	<!-- 3.查询一级分类 -->
+	<select id="queryTypeList" parameterType="KindDto" resultType="KindDto">
+		select * from Type
+	</select>
+</mapper>
