@@ -126,10 +126,35 @@ public class OrderServiceImpl implements OrderService {
 		shopCarDao.deleteShopCarBySomeCarId(orderDto.getCarIds());
 
 		ResponseDto responseDto = new ResponseDto();
-		Map<String, Object> map = new HashMap<String, Object>();
-		responseDto.setDetail(map);
+		responseDto.setDetail(outTradeNo);
 		responseDto.setResultDesc("提交订单成功");
 		return responseDto;
+	}
+
+	/**
+	 * 
+	 * @number	2		@description 查询订单
+	 * 
+	 * @param orderDto
+	 * @return
+	 * @throws Exception
+	 *
+	 * @Date 2015年12月30日
+	 */
+	@Override
+	public ResponseDto queryOrder(OrderDto orderDto) throws Exception {
+		if (orderDto == null) {
+			throw new BusinessException(Constants.DATA_ERROR);
+		}
+		List<OrderDto> orders = orderDao.queryOrder(orderDto);
+
+		ResponseDto responseDto = new ResponseDto();
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("list", orders);
+		responseDto.setDetail(map);
+		responseDto.setResultDesc("我的订单");
+		return responseDto;
+
 	}
 
 	/**

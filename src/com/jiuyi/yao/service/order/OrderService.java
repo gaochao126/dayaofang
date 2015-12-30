@@ -23,6 +23,18 @@ public interface OrderService {
 	public ResponseDto submitOrder(OrderDto orderDto) throws Exception;
 
 	/**
+	 * 
+	 * @number	2		@description 查询订单
+	 * 
+	 * @param orderDto
+	 * @return
+	 * @throws Exception
+	 *
+	 * @Date 2015年12月30日
+	 */
+	public ResponseDto queryOrder(OrderDto orderDto) throws Exception;
+
+	/**
 	 * @description 创建微信支付订单
 	 * @param thirdPayOrderDto
 	 * @return

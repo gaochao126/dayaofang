@@ -70,6 +70,10 @@ public class CacheContainer {
 		serviceMap.put("deleteShopCar", ShopCarService.class);
 		serviceMap.put("iemeToUser", ShopCarService.class);
 		serviceMap.put("updateShopCarBuyStatus", ShopCarService.class);
+		serviceMap.put("addAddress", AreaService.class);
+		serviceMap.put("updateAddress", AreaService.class);
+		serviceMap.put("queryAddress", AreaService.class);
+		serviceMap.put("deleteAddress", AreaService.class);
 
 		/** notAuthMap. */
 		notAuthMap.put("checkPhoneExit", null);

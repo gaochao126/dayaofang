@@ -82,4 +82,15 @@ public interface AddressDao {
 	 * @Date 2015年12月30日
 	 */
 	public List<AddressDto> queryUserAddress(AddressDto addressDto) throws Exception;
+
+	/**
+	 * 
+	 * @number	7		@description 删除地址
+	 * 
+	 * @param addressDto
+	 * @throws Exception
+	 *
+	 * @Date 2015年12月30日
+	 */
+	public void deleteAddress(AddressDto addressDto) throws Exception;
 }
