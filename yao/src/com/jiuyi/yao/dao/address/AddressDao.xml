@@ -26,7 +26,7 @@
 		VALUES
 		(
 			#{addr_id}, 	#{user_id}, 	#{person_name}, 	#{addr_provence},	#{addr_city},	#{addr_country},	#{addr_stree},
-			#{addr_mail},	#{phone},		#{addr_status}		#{delete_status}
+			#{addr_mail},	#{phone},		#{addr_status},		#{delete_status}
 		)
 	</insert>
 	
@@ -64,7 +64,7 @@
 		<if test="addr_id != null">
 			and addr_id = #{addr_id}
 		</if>
-		<if test="user_id != nuLl">
+		<if test="user_id != null">
 			and user_id = #{user_id}
 		</if>
 	</update>
@@ -79,5 +79,13 @@
 		<if test="addr_id != null">
 			and addr_id = #{addr_id}
 		</if>
+		<if test="addr_status != null">
+			and addr_status = #{addr_status}
+		</if>
 	</select>
+	
+	<!-- 7.删除地址 -->
+	<delete id="deleteAddress" parameterType="AddressDto">
+		delete from Address where addr_id = #{addr_id} and user_id = #{user_id}
+	</delete>
 </mapper>

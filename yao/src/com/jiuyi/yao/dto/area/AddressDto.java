@@ -22,8 +22,8 @@ public class AddressDto extends BaseDto {
 	private String addr_stree;
 	private String addr_mail;
 	private String phone;
-	private int addr_status;
-	private int delete_status;
+	private Integer addr_status;
+	private Integer delete_status;
 
 	public String getAddr_id() {
 		return addr_id;
@@ -97,19 +97,19 @@ public class AddressDto extends BaseDto {
 		this.phone = phone;
 	}
 
-	public int getAddr_status() {
+	public Integer getAddr_status() {
 		return addr_status;
 	}
 
-	public void setAddr_status(int addr_status) {
+	public void setAddr_status(Integer addr_status) {
 		this.addr_status = addr_status;
 	}
 
-	public int getDelete_status() {
+	public Integer getDelete_status() {
 		return delete_status;
 	}
 
-	public void setDelete_status(int delete_status) {
+	public void setDelete_status(Integer delete_status) {
 		this.delete_status = delete_status;
 	}
 

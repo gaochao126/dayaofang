@@ -1,5 +1,6 @@
 package com.jiuyi.yao.service.area;
 
+import com.jiuyi.yao.dto.area.AddressDto;
 import com.jiuyi.yao.dto.area.AreaDto;
 import com.jiuyi.yao.dto.common.ResponseDto;
 
@@ -46,4 +47,52 @@ public interface AreaService {
 	 * @Date 2015年12月23日
 	 */
 	public ResponseDto queryTownByCityCascade(AreaDto areaDto) throws Exception;
+
+	/**
+	 * 
+	 * @number			@description 添加地址
+	 * 
+	 * @param addressDto
+	 * @return
+	 * @throws Exception
+	 *
+	 * @Date 2015年12月30日
+	 */
+	public ResponseDto addAddress(AddressDto addressDto) throws Exception;
+
+	/**
+	 * 
+	 * @number			@description 修改地址
+	 * 
+	 * @param addressDto
+	 * @return
+	 * @throws Exception
+	 *
+	 * @Date 2015年12月30日
+	 */
+	public ResponseDto updateAddress(AddressDto addressDto) throws Exception;
+
+	/**
+	 * 
+	 * @number			@description	查询地址
+	 * 
+	 * @param addressDto
+	 * @return
+	 * @throws Exception
+	 *
+	 * @Date 2015年12月30日
+	 */
+	public ResponseDto queryAddress(AddressDto addressDto) throws Exception;
+
+	/**
+	 * 
+	 * @number			@description 删除地址
+	 * 
+	 * @param addressDto
+	 * @return
+	 * @throws Exception
+	 *
+	 * @Date 2015年12月30日
+	 */
+	public ResponseDto deleteAddress(AddressDto addressDto) throws Exception;
 }
