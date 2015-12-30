@@ -24,6 +24,9 @@
 			<if test="format_id != null">
 				and a.format_id = #{format_id}
 			</if>
+			<if test="car_id ！= null">
+				and a.car_id = #{car_id}
+			</if>
 	</select>
 	
 	<!-- 2.添加购物车 -->
@@ -120,5 +123,18 @@
 		</if>
 	</update>
 	
+	<!-- 9.批量查询购物车 -->
+	<select id="querySomeShopCar" resultType="ShopCarDto">
+		select a.*,b.prod_name, b.prod_certno, b.prod_discount, b.prod_function, b.img_id, b.prod_taboo,b.prod_xl, 
+			c.prod_format, c.prod_pack, c.prod_unit, c.prod_price, c.prod_sku, d.img_src, d.img_type from ShopCar a 
+			left join Products b on a.prod_id = b.prod_id
+			left join Formats c on a.format_id = c.format_id
+			left join Img d on b.img_id = d.img_id 
+			
+			where car_id in
+			<foreach collection="list" item="car_id" index="index" open="(" close=")" separator=",">
+                #{car_id}
+            </foreach>
+	</select>
 	
 </mapper>

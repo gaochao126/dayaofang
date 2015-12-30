@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jiuyi.yao.dao.order.OrderDao">
+	<!-- 1.查询订单 -->
+	<select id="queryOrder" parameterType="OrderDto" resultType="OrderDto">
+		select a.*,b.prod_name, b.prod_commonName, b.prod_function, b.prod_certno, b.prod_chandi, b.prod_bad, b.prod_discount, b.prod_usage,
+		b.prod_taboo, c.prod_format, c.prod_pack, c.prod_price , d.img_src, d.img_type from PayOrders a 
+		left join Products b on a.prod_id = b.prod_id
+		left join Formats c on a.format_id = c.format_id
+		left join Img d on b.img_id = d.img_id
+		where 1=1 
+		<if test="user_id !=null and user_id != ''">
+			and user_id = #{user_id}
+		</if>
+		<if test="outTradeNo != null and outTradeNo != ''">
+			and outTradeNo = #{outTradeNo}
+		</if>
+		<if test="order_id != null and order_id != ''">
+			and order_id = #{order_id}
+		</if>
+		<if test="order_status != null">
+			and orderStatus = #{orderStatus}
+		</if>
+	</select>
+	
+	<!-- 2.添加订单 -->
+	<insert id="insertOrder" parameterType="OrderDto">
+		insert into PayOrders
+		(
+			order_id, 			user_id, 			prod_id, 			format_id, 			outTradeNo, 		transactionId, 
+			prepayId, 			totalAmount, 		orderType, 			createTime, 		payTime, 			payType, 
+			payBank, 			orderStatus, 		couponId,	 		buy_count, 			payAmount,			delivTime,			delivWay,
+			receiverWay,		receiverAddr,		orderMess,			discussStatus,		refundStatus,		displayStatus,		clientType
+		)
+		values
+		(
+			#{order_id},		#{user_id}, 		#{prod_id},			#{format_id},		#{outTradeNo},		#{transactionId},
+			#{prepayId},		#{totalAmount},		#{orderType},		#{createTime},		#{payTime},			#{payType},
+			#{payBank},			#{orderStatus},		#{couponId},		#{buy_count},		#{payAmount},		#{delivTime},		#{delivWay},
+			#{receiverWay},		#{receiverAddr},	#{orderMess},		#{discussStatus},	#{refundStatus},	#{displayStatus},	#{clientType}
+		)
+	</insert>
+	
+	<!-- 3.修改订单 -->
+	<update id="updateOrder" parameterType="OrderDto">
+		update PayOrders set 1=1
+		<if test="orderStatus != null">
+			,orderStatus = #{orderStatus}
+		</if>
+		<if test="refundStatus != null">
+			,refundStatus = #{refundStatus}
+		</if>
+		<if test="discussStatus != null">
+			,discussStatus != #{discussStatus}
+		</if>
+		<if test="payTime != null">
+			,payTime = #{payTime}
+		</if>
+		<if test="payType != null">
+			,payType = #{payType}
+		</if>
+		<if test="payBank != null">
+			,payBank = #{payBank}
+		</if>
+		<if test="transactionId != null">
+			,transactionId = #{transactionId}
+		</if>
+		<if test="clientType != null">
+			,clientType = #{clientType}
+		</if>
+		<if test="prepayId != null">
+			,prepayId = #{prepayId}
+		</if>
+		where 1=1
+		<if test="order_id != null and order_id != ''">
+			and order_id = #{order_id}
+		</if>
+		<if test="outTradeNo !=null and outTradeNo != ''">
+			and outTradeNo = #{outTradeNo}
+		</if>
+	</update>
+</mapper>
