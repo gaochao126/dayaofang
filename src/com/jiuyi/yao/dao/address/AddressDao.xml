@@ -16,4 +16,68 @@
 		select * from quan_prov_city_area where arealevel = 3 and topno = #{no}
 	</select>
 	
+	<!-- 4.添加地址 -->
+	<insert id="addAddress" parameterType="AddressDto">
+		insert into Address 
+		(
+			addr_id, 		user_id, 		person_name, 		addr_provence, 		addr_city, 		addr_country, 		addr_stree, 
+			addr_mail, 		phone, 			addr_status,		delete_status
+		)
+		VALUES
+		(
+			#{addr_id}, 	#{user_id}, 	#{person_name}, 	#{addr_provence},	#{addr_city},	#{addr_country},	#{addr_stree},
+			#{addr_mail},	#{phone},		#{addr_status}		#{delete_status}
+		)
+	</insert>
+	
+	<!-- 5.修改地址 -->
+	<update id="updateAddress" parameterType="AddressDto">
+		update Address	set  delete_status = 1
+		<if test="person_name != null">
+			,person_name = #{person_name}
+		</if>
+		<if test="addr_provence != null">
+			,addr_provence = #{addr_provence}
+		</if>
+		<if test="addr_city != null">
+			,addr_city = #{addr_city}
+		</if>
+		<if test="addr_country != null">
+			,addr_country = #{addr_country}
+		</if>
+		<if test="addr_stree != null">
+			,addr_stree = #{addr_stree}
+		</if>
+		<if test="addr_mail != null">
+			,addr_mail = #{addr_mail}
+		</if>
+		<if test="phone != null">
+			,phone = #{phone}
+		</if>
+		<if test="addr_status != null">
+			,addr_status = #{addr_status}
+		</if>
+		<if test="delete_status != null">
+			,delete_status = #{delete_status}
+		</if>
+		where 1=1
+		<if test="addr_id != null">
+			and addr_id = #{addr_id}
+		</if>
+		<if test="user_id != nuLl">
+			and user_id = #{user_id}
+		</if>
+	</update>
+	
+	<!-- 6.查询个人地址 -->
+	<select id="queryUserAddress" parameterType="AddressDto" resultType="AddressDto">
+		select * from Address
+		where 1=1
+		<if test="user_id != null">
+			and user_id = #{user_id}
+		</if>
+		<if test="addr_id != null">
+			and addr_id = #{addr_id}
+		</if>
+	</select>
 </mapper>

@@ -101,4 +101,16 @@ public interface ShopCarDao {
 	 */
 	public void updateCarStatus(ShopCarDto shopCarDto) throws Exception;
 
+	/**
+	 * 
+	 * @number 9 @description 批量查询购物车
+	 * 
+	 * @param shopCarDto
+	 * @return
+	 * @throws Exception
+	 *
+	 * @Date 2015年12月29日
+	 */
+	public List<ShopCarDto> querySomeShopCar(List<String> carIds) throws Exception;
+
 }
