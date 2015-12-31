@@ -88,6 +88,8 @@ public class OrderDto extends BaseDto {
 	/** 应用调用支付接口的参数. */
 	private String payParams;
 
+	private Date updateTime;
+
 	public String getOrder_id() {
 		return order_id;
 	}
@@ -454,6 +456,14 @@ public class OrderDto extends BaseDto {
 
 	public void setPayParams(String payParams) {
 		this.payParams = payParams;
+	}
+
+	public Date getUpdateTime() {
+		return updateTime;
+	}
+
+	public void setUpdateTime(Date updateTime) {
+		this.updateTime = updateTime;
 	}
 
 }
