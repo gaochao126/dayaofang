@@ -25,6 +25,7 @@ public class DiscussDto extends BaseDto {
 	private String dis_time;
 	private Integer dis_status;
 	private Integer anmou_status;
+	private String order_id;
 
 	public String getDis_id() {
 		return dis_id;
@@ -128,6 +129,14 @@ public class DiscussDto extends BaseDto {
 
 	public void setAnmou_status(Integer anmou_status) {
 		this.anmou_status = anmou_status;
+	}
+
+	public String getOrder_id() {
+		return order_id;
+	}
+
+	public void setOrder_id(String order_id) {
+		this.order_id = order_id;
 	}
 
 }

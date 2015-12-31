@@ -30,20 +30,22 @@
 			order_id, 			user_id, 			prod_id, 			format_id, 			outTradeNo, 		transactionId, 
 			prepayId, 			totalAmount, 		orderType, 			createTime, 		payTime, 			payType, 
 			payBank, 			orderStatus, 		couponId,	 		buy_count, 			payAmount,			delivTime,			delivWay,
-			receiverWay,		receiverAddr,		orderMess,			discussStatus,		refundStatus,		displayStatus,		clientType
+			receiverWay,		receiverAddr,		orderMess,			discussStatus,		refundStatus,		displayStatus,		clientType,
+			updateTime
 		)
 		values
 		(
 			#{order_id},		#{user_id}, 		#{prod_id},			#{format_id},		#{outTradeNo},		#{transactionId},
 			#{prepayId},		#{totalAmount},		#{orderType},		#{createTime},		#{payTime},			#{payType},
 			#{payBank},			#{orderStatus},		#{couponId},		#{buy_count},		#{payAmount},		#{delivTime},		#{delivWay},
-			#{receiverWay},		#{receiverAddr},	#{orderMess},		#{discussStatus},	#{refundStatus},	#{displayStatus},	#{clientType}
+			#{receiverWay},		#{receiverAddr},	#{orderMess},		#{discussStatus},	#{refundStatus},	#{displayStatus},	#{clientType},
+			now()
 		)
 	</insert>
 	
 	<!-- 3.修改订单 -->
 	<update id="updateOrder" parameterType="OrderDto">
-		update PayOrders set 1=1
+		update PayOrders set updateTime = now()
 		<if test="orderStatus != null">
 			,orderStatus = #{orderStatus}
 		</if>
