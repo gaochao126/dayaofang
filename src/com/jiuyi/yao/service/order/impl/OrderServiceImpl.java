@@ -84,7 +84,6 @@ public class OrderServiceImpl implements OrderService {
 
 		// 查询购物车
 		List<ShopCarDto> cars = shopCarDao.querySomeShopCar(orderDto.getCarIds());
-
 		// 查询收货地址
 		AddressDto addressDto = new AddressDto();
 		addressDto.setAddr_id(orderDto.getAddr_id());
@@ -93,7 +92,6 @@ public class OrderServiceImpl implements OrderService {
 			throw new BusinessException("地址不存在");
 		}
 		String receiverAddr = addrs.get(0).getAddr_provence() + " " + addrs.get(0).getAddr_city() + " " + addrs.get(0).getAddr_country() + " " + addrs.get(0).getAddr_stree() + " 邮编：" + addrs.get(0).getAddr_mail() + " 收货人电话：" + addrs.get(0).getPhone() + " 收货人姓名：" + addrs.get(0).getPerson_name();
-
 		// 生成订单编号
 		String outTradeNo = Util.getUniqueSn();
 
@@ -102,26 +100,23 @@ public class OrderServiceImpl implements OrderService {
 
 		for (int i = 0; i < cars.size(); i++) {
 			OrderDto order = new OrderDto();
-			order.setOrder_id(Util.getUniqueSn());
+			order.setOrder_id(cars.get(i).getCar_id());
 			order.setUser_id(orderDto.getUser_id());
 			order.setProd_id(cars.get(i).getProd_id());
 			order.setFormat_id(cars.get(i).getFormat_id());
 			order.setOutTradeNo(outTradeNo);
 			order.setOrderType(0);
 			order.setCreateTime(new Date());
-			order.setOrderStatus(0);
 			order.setBuy_count(cars.get(i).getBuy_count());
 			order.setReceiverWay(orderDto.getReceiverWay());
 			order.setReceiverAddr(receiverAddr);
 			order.setOrderMess(orderDto.getOrderMess());
-			order.setDiscussStatus(0);
-			order.setRefundStatus(0);
-			order.setDisplayStatus(1);
 			order.setPayAmount(cars.get(i).getProd_price().multiply(new BigDecimal(cars.get(i).getBuy_count())));// 设置小计
 			totalAmount.add(order.getPayAmount());
-			orderDao.insertOrder(orderDto);
-
+			orderDao.insertOrder(order);
+			System.out.println("添加成功一个");
 		}
+
 		// 删除购物车
 		shopCarDao.deleteShopCarBySomeCarId(orderDto.getCarIds());
 
@@ -146,6 +141,12 @@ public class OrderServiceImpl implements OrderService {
 		if (orderDto == null) {
 			throw new BusinessException(Constants.DATA_ERROR);
 		}
+
+		TokenDto tokenDto = CacheContainer.getToken(orderDto.getToken());
+		CustomerDto cust = tokenDto != null ? tokenDto.getCustomerDto() : new CustomerDto();
+
+		orderDto.setUser_id(cust.getUser_id());
+
 		List<OrderDto> orders = orderDao.queryOrder(orderDto);
 
 		ResponseDto responseDto = new ResponseDto();
@@ -154,7 +155,6 @@ public class OrderServiceImpl implements OrderService {
 		responseDto.setDetail(map);
 		responseDto.setResultDesc("我的订单");
 		return responseDto;
-
 	}
 
 	/**
@@ -195,7 +195,7 @@ public class OrderServiceImpl implements OrderService {
 		/** 设置总额. */
 		BigDecimal totalAmount = new BigDecimal(0);
 
-		// 判断处方是否为可待支付状态
+		// 判断订单是否为可待支付状态
 		for (int i = 0; i < orders.size(); i++) {
 			totalAmount.add(orders.get(i).getPayAmount());
 			if (orders.get(i).getOrderStatus() != 0) {

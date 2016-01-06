@@ -37,19 +37,19 @@ public class OrderDto extends BaseDto {
 	private String receiverAddr;
 
 	/** 购买数量. */
-	private int buy_count;
+	private Integer buy_count;
 
 	/** 订单状态. */
-	private int orderStatus;
+	private Integer orderStatus;
 
 	/** 订单留言. */
 	private String orderMess;
 
 	/** 评论状态. */
-	private int discussStatus;
+	private Integer discussStatus;
 
 	/** 退款状态. */
-	private int refundStatus;
+	private Integer refundStatus;
 
 	private String prod_name;
 	private String prod_commonName;
@@ -218,19 +218,19 @@ public class OrderDto extends BaseDto {
 		this.receiverAddr = receiverAddr;
 	}
 
-	public int getBuy_count() {
+	public Integer getBuy_count() {
 		return buy_count;
 	}
 
-	public void setBuy_count(int buy_count) {
+	public void setBuy_count(Integer buy_count) {
 		this.buy_count = buy_count;
 	}
 
-	public int getOrderStatus() {
+	public Integer getOrderStatus() {
 		return orderStatus;
 	}
 
-	public void setOrderStatus(int orderStatus) {
+	public void setOrderStatus(Integer orderStatus) {
 		this.orderStatus = orderStatus;
 	}
 
@@ -242,19 +242,19 @@ public class OrderDto extends BaseDto {
 		this.orderMess = orderMess;
 	}
 
-	public int getDiscussStatus() {
+	public Integer getDiscussStatus() {
 		return discussStatus;
 	}
 
-	public void setDiscussStatus(int discussStatus) {
+	public void setDiscussStatus(Integer discussStatus) {
 		this.discussStatus = discussStatus;
 	}
 
-	public int getRefundStatus() {
+	public Integer getRefundStatus() {
 		return refundStatus;
 	}
 
-	public void setRefundStatus(int refundStatus) {
+	public void setRefundStatus(Integer refundStatus) {
 		this.refundStatus = refundStatus;
 	}
 
@@ -378,12 +378,28 @@ public class OrderDto extends BaseDto {
 		this.ipAddr = ipAddr;
 	}
 
+	public String getAddr_id() {
+		return addr_id;
+	}
+
+	public void setAddr_id(String addr_id) {
+		this.addr_id = addr_id;
+	}
+
 	public List<String> getOrderIds() {
 		return orderIds;
 	}
 
 	public void setOrderIds(List<String> orderIds) {
 		this.orderIds = orderIds;
+	}
+
+	public List<String> getCarIds() {
+		return carIds;
+	}
+
+	public void setCarIds(List<String> carIds) {
+		this.carIds = carIds;
 	}
 
 	public String getTransactionId() {
@@ -432,22 +448,6 @@ public class OrderDto extends BaseDto {
 
 	public void setPrepayId(String prepayId) {
 		this.prepayId = prepayId;
-	}
-
-	public List<String> getCarIds() {
-		return carIds;
-	}
-
-	public void setCarIds(List<String> carIds) {
-		this.carIds = carIds;
-	}
-
-	public String getAddr_id() {
-		return addr_id;
-	}
-
-	public void setAddr_id(String addr_id) {
-		this.addr_id = addr_id;
 	}
 
 	public String getPayParams() {

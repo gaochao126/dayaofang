@@ -9,17 +9,23 @@
 		left join Formats c on a.format_id = c.format_id
 		left join Img d on b.img_id = d.img_id
 		where 1=1 
-		<if test="user_id !=null and user_id != ''">
+		<if test="user_id != null">
 			and user_id = #{user_id}
 		</if>
-		<if test="outTradeNo != null and outTradeNo != ''">
+		<if test="outTradeNo != null">
 			and outTradeNo = #{outTradeNo}
 		</if>
-		<if test="order_id != null and order_id != ''">
+		<if test="order_id != null">
 			and order_id = #{order_id}
 		</if>
-		<if test="order_status != null">
+		<if test="orderStatus != null">
 			and orderStatus = #{orderStatus}
+		</if>
+		<if test="discussStatus != null">
+			and discussStatus = #{discussStatus}
+		</if>
+		<if test="refundStatus != null">
+			and refundStatus = #{refundStatus}
 		</if>
 	</select>
 	
@@ -29,16 +35,16 @@
 		(
 			order_id, 			user_id, 			prod_id, 			format_id, 			outTradeNo, 		transactionId, 
 			prepayId, 			totalAmount, 		orderType, 			createTime, 		payTime, 			payType, 
-			payBank, 			orderStatus, 		couponId,	 		buy_count, 			payAmount,			delivTime,			delivWay,
-			receiverWay,		receiverAddr,		orderMess,			discussStatus,		refundStatus,		displayStatus,		clientType,
+			payBank, 			couponId,	 		buy_count, 			payAmount,			delivTime,			delivWay,
+			receiverWay,		receiverAddr,		orderMess,			clientType,
 			updateTime
 		)
 		values
 		(
 			#{order_id},		#{user_id}, 		#{prod_id},			#{format_id},		#{outTradeNo},		#{transactionId},
 			#{prepayId},		#{totalAmount},		#{orderType},		#{createTime},		#{payTime},			#{payType},
-			#{payBank},			#{orderStatus},		#{couponId},		#{buy_count},		#{payAmount},		#{delivTime},		#{delivWay},
-			#{receiverWay},		#{receiverAddr},	#{orderMess},		#{discussStatus},	#{refundStatus},	#{displayStatus},	#{clientType},
+			#{payBank},			#{couponId},		#{buy_count},		#{payAmount},		#{delivTime},		#{delivWay},
+			#{receiverWay},		#{receiverAddr},	#{orderMess},		#{clientType},
 			now()
 		)
 	</insert>
@@ -51,10 +57,10 @@
 		</if>
 		<if test="refundStatus != null">
 			,refundStatus = #{refundStatus}
-		</if>
+		</if> 
 		<if test="discussStatus != null">
-			,discussStatus != #{discussStatus}
-		</if>
+			,discussStatus = #{discussStatus}
+		</if> 
 		<if test="payTime != null">
 			,payTime = #{payTime}
 		</if>
@@ -72,12 +78,12 @@
 		</if>
 		<if test="prepayId != null">
 			,prepayId = #{prepayId}
-		</if>
-		where 1=1
-		<if test="order_id != null and order_id != ''">
+		</if> 
+		where 	1
+		<if test="order_id != null">
 			and order_id = #{order_id}
 		</if>
-		<if test="outTradeNo !=null and outTradeNo != ''">
+		<if test="outTradeNo != null">
 			and outTradeNo = #{outTradeNo}
 		</if>
 	</update>
