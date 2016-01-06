@@ -18,6 +18,7 @@ import org.springframework.stereotype.Service;
 
 import com.jiuyi.yao.common.dict.CacheContainer;
 import com.jiuyi.yao.common.dict.Constants;
+import com.jiuyi.yao.common.util.Enumerate;
 import com.jiuyi.yao.common.util.HttpsUtil;
 import com.jiuyi.yao.common.util.MD5;
 import com.jiuyi.yao.common.util.SysCfg;
@@ -105,7 +106,7 @@ public class OrderServiceImpl implements OrderService {
 			order.setProd_id(cars.get(i).getProd_id());
 			order.setFormat_id(cars.get(i).getFormat_id());
 			order.setOutTradeNo(outTradeNo);
-			order.setOrderType(0);
+			order.setOrderType(1);// 1药品
 			order.setCreateTime(new Date());
 			order.setBuy_count(cars.get(i).getBuy_count());
 			order.setReceiverWay(orderDto.getReceiverWay());
@@ -148,6 +149,9 @@ public class OrderServiceImpl implements OrderService {
 		orderDto.setUser_id(cust.getUser_id());
 
 		List<OrderDto> orders = orderDao.queryOrder(orderDto);
+		for (int i = 0; i < orders.size(); i++) {
+			orders.get(i).setImg_src(Enumerate.IMG_SRC + orders.get(i).getImg_src());
+		}
 
 		ResponseDto responseDto = new ResponseDto();
 		Map<String, Object> map = new HashMap<String, Object>();
