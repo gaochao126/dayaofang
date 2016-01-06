@@ -79,6 +79,7 @@ public class CacheContainer {
 		serviceMap.put("addDiscuss", DiscussService.class);
 		serviceMap.put("submitOrder", OrderService.class);
 		serviceMap.put("queryOrder", OrderService.class);
+		serviceMap.put("createWeixinPayOrder", OrderService.class);
 
 		/** notAuthMap. */
 		notAuthMap.put("checkPhoneExit", null);
