@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jiuyi.yao.dao.collect.CollectDao">
+	<!-- 1.添加收藏 -->
+	<insert id="addCollect" parameterType="CollectDto">
+		insert into Collect 
+		(
+			coll_id, 		prod_id,		user_id, 		format_id
+		)
+		values 
+		(
+			#{coll_id},		#{prod_id},		#{user_id},		#{format_id}
+		)
+		
+	</insert>
+	
+	<!-- 2.查询收藏 -->
+	<select id="queryCollect" parameterType="CollectDto" resultType="CollectDto">
+		select a.*, b.prod_name, b.prod_commonName, b.prod_certno, b.prod_discount, b.prod_chandi, b.prod_function, b.img_id, c.prod_pack, c.prod_price, c.prod_format,
+		d.img_src, d.img_type from Collect a 
+		left join Products b on a.prod_id = b.prod_id
+		left join Formats c on a.format_id = c.format_id
+		left join Img d on b.img_id = d.img_id
+		
+		where 1=1
+		<if test="coll_id != null">
+			and a.coll_id = #{coll_id}
+		</if>
+		<if test="user_id != null">
+			and a.user_id = #{user_id}
+		</if>
+		<if test="prod_id != null">
+			and a.prod_id = #{prod_id}
+		</if>
+		<if test="format_id != null">
+			and a.format_id = #{format_id}
+		</if>
+	</select>
+	
+	<!-- 3.删除收藏 -->
+	<delete id="deleteCollect" parameterType="CollectDto">
+		delete from Collect where coll_id = #{coll_id} and user_id = #{user_id}
+	</delete>
+</mapper>

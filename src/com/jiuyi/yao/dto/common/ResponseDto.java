@@ -7,51 +7,62 @@ import java.io.Serializable;
  * @author zhb
  * @createTime 2015年4月21日
  */
-public class ResponseDto implements Serializable{
-    /** serialVersionUID. */
-    private static final long serialVersionUID = -5086935669581293324L;
+public class ResponseDto implements Serializable {
+	/** serialVersionUID. */
+	private static final long serialVersionUID = -5086935669581293324L;
 
-    /** 请求命令. */
-    private String cmd;
+	/** 请求命令. */
+	private String cmd;
 
-    /** 结果码. */
-    private int resultCode;
+	/** 结果码. */
+	private int resultCode;
 
-    /** 结果描述. */
-    private String resultDesc = "成功";
+	/** 结果描述. */
+	private String resultDesc = "成功";
 
-    /** 数据详情. */
-    private Object detail;
+	/** 数据详情. */
+	private Object detail;
 
-    public String getCmd() {
-        return cmd;
-    }
+	public ResponseDto() {
+		super();
+	}
 
-    public void setCmd(String cmd) {
-        this.cmd = cmd;
-    }
+	public ResponseDto(int resultCode, String resultDesc, Object detail) {
+		super();
+		this.resultCode = resultCode;
+		this.resultDesc = resultDesc;
+		this.detail = detail;
+	}
 
-    public int getResultCode() {
-        return resultCode;
-    }
+	public String getCmd() {
+		return cmd;
+	}
 
-    public void setResultCode(int resultCode) {
-        this.resultCode = resultCode;
-    }
+	public void setCmd(String cmd) {
+		this.cmd = cmd;
+	}
 
-    public String getResultDesc() {
-        return resultDesc;
-    }
+	public int getResultCode() {
+		return resultCode;
+	}
 
-    public void setResultDesc(String resultDesc) {
-        this.resultDesc = resultDesc;
-    }
+	public void setResultCode(int resultCode) {
+		this.resultCode = resultCode;
+	}
 
-    public Object getDetail() {
-        return detail;
-    }
+	public String getResultDesc() {
+		return resultDesc;
+	}
 
-    public void setDetail(Object detail) {
-        this.detail = detail;
-    }
+	public void setResultDesc(String resultDesc) {
+		this.resultDesc = resultDesc;
+	}
+
+	public Object getDetail() {
+		return detail;
+	}
+
+	public void setDetail(Object detail) {
+		this.detail = detail;
+	}
 }
