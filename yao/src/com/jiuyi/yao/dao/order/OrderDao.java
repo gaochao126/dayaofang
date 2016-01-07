@@ -45,4 +45,15 @@ public interface OrderDao {
 	 * @Date 2015年12月29日
 	 */
 	public void updateOrder(OrderDto orderDto) throws Exception;
+
+	/**
+	 * 
+	 * @number	4		@description	过期订单处理
+	 * 
+	 * @param orderDto
+	 * @throws Exception
+	 *
+	 * @Date 2016年1月7日
+	 */
+	public void expiredOrderHandl(OrderDto orderDto) throws Exception;
 }
