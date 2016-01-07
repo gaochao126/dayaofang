@@ -12,6 +12,7 @@ import com.jiuyi.yao.dto.common.AccessTokenDto;
 import com.jiuyi.yao.dto.common.TokenDto;
 import com.jiuyi.yao.dto.customer.CustomerDto;
 import com.jiuyi.yao.service.area.AreaService;
+import com.jiuyi.yao.service.collect.CollectService;
 import com.jiuyi.yao.service.customer.CustomerService;
 import com.jiuyi.yao.service.discuss.DiscussService;
 import com.jiuyi.yao.service.kind.KindService;
@@ -81,6 +82,9 @@ public class CacheContainer {
 		serviceMap.put("queryOrder", OrderService.class);
 		serviceMap.put("createWeixinPayOrder", OrderService.class);
 		serviceMap.put("requestRefund", OrderService.class);
+		serviceMap.put("addCollect", CollectService.class);
+		serviceMap.put("queryCollect", CollectService.class);
+		serviceMap.put("deleteCollect", CollectService.class);
 
 		/** notAuthMap. */
 		notAuthMap.put("checkPhoneExit", null);
