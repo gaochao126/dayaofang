@@ -66,6 +66,7 @@ public class OrderDto extends BaseDto {
 	private String img_src;
 	private Integer img_type;
 	private String ipAddr;
+	private Date expiredTime;// 过期时间
 
 	private String addr_id;
 
@@ -464,6 +465,14 @@ public class OrderDto extends BaseDto {
 
 	public void setUpdateTime(Date updateTime) {
 		this.updateTime = updateTime;
+	}
+
+	public Date getExpiredTime() {
+		return expiredTime;
+	}
+
+	public void setExpiredTime(Date expiredTime) {
+		this.expiredTime = expiredTime;
 	}
 
 }

@@ -99,19 +99,22 @@ public class OrderServiceImpl implements OrderService {
 		/** 设置总额. */
 		BigDecimal totalAmount = new BigDecimal(0);
 
+		// 创建订单对象，并设置共同订单信息
+		OrderDto order = new OrderDto();
+		order.setCreateTime(new Date());
+		order.setExpiredTime(new Date(new Date().getTime() + 60 * 60 * 1000));// 设置过期时间，1小时
+		order.setUser_id(orderDto.getUser_id());
+		order.setOutTradeNo(outTradeNo);
+		order.setOrderType(1);// 1药品
+		order.setReceiverWay(orderDto.getReceiverWay());
+		order.setReceiverAddr(receiverAddr);
+		order.setOrderMess(orderDto.getOrderMess());
+
 		for (int i = 0; i < cars.size(); i++) {
-			OrderDto order = new OrderDto();
 			order.setOrder_id(cars.get(i).getCar_id());
-			order.setUser_id(orderDto.getUser_id());
 			order.setProd_id(cars.get(i).getProd_id());
 			order.setFormat_id(cars.get(i).getFormat_id());
-			order.setOutTradeNo(outTradeNo);
-			order.setOrderType(1);// 1药品
-			order.setCreateTime(new Date());
 			order.setBuy_count(cars.get(i).getBuy_count());
-			order.setReceiverWay(orderDto.getReceiverWay());
-			order.setReceiverAddr(receiverAddr);
-			order.setOrderMess(orderDto.getOrderMess());
 			order.setPayAmount(cars.get(i).getProd_price().multiply(new BigDecimal(cars.get(i).getBuy_count())));// 设置小计
 			totalAmount.add(order.getPayAmount());
 			orderDao.insertOrder(order);
@@ -492,5 +495,19 @@ public class OrderServiceImpl implements OrderService {
 			orderDto.setRefundStatus(2);
 			orderDao.updateOrder(orderDto);
 		}
+	}
+
+	/**
+	 * 
+	 * @number			@description	过期订单处理
+	 * 
+	 * @throws Exception
+	 *
+	 * @Date 2016年1月7日
+	 */
+	@Override
+	public void expiredOrder() throws Exception {
+		OrderDto orderDto = new OrderDto();
+		orderDao.expiredOrderHandl(orderDto);
 	}
 }

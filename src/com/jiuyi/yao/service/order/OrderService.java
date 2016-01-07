@@ -72,4 +72,14 @@ public interface OrderService {
 	 */
 	public void refund(OrderDto orderDto) throws Exception;
 
+	/**
+	 * 
+	 * @number			@description	过期订单处理
+	 * 
+	 * @throws Exception
+	 *
+	 * @Date 2016年1月7日
+	 */
+	public void expiredOrder() throws Exception;
+
 }
