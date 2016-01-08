@@ -419,7 +419,7 @@ public class OrderServiceImpl implements OrderService {
 		RefundDto refundDto = new RefundDto();
 		refundDto.setId(outRefundNo);
 		refundDto.setOutTradeNo(orderDto.getOutTradeNo());
-		refundDto.setStatus(1);// 设置退款状态为申请退款中
+		refundDto.setStatus(0);// 设置退款状态为申请退款中
 		refundDao.insertRefund(refundDto);
 
 		// 更改订单状态为申请退款
@@ -481,20 +481,28 @@ public class OrderServiceImpl implements OrderService {
 
 			// 判断结果
 			if (!respMap.get("return_code").equals("SUCCESS")) {
+				// 退款失败后，更新退款记录状态
+				refundDto.setEndTime(new Date());
+				refundDto.setStatus(2);
+				refundDao.updateRefund(refundDto);
+
+				// 退款失败后，更新订单状态为退款失败
+				orderDto.setRefundStatus(3);
+				orderDao.updateOrder(orderDto);
 				logger.info("ThirdPayOrderServiceImpl.refund==>return_code:" + respMap.get("return_code"));
 				throw new BusinessException(respMap.get("return_msg"));
 			}
 
-			// 退款成功后，更新退款记录状态
-			refundDto.setEndTime(new Date());
-			refundDto.setId(respMap.get("out_refund_no"));
-			refundDto.setStatus(1);
-			refundDao.updateRefund(refundDto);
-
-			// 退款成功后，更新订单状态为退款成功
-			orderDto.setRefundStatus(2);
-			orderDao.updateOrder(orderDto);
 		}
+
+		// 退款成功后，更新退款记录状态
+		refundDto.setEndTime(new Date());
+		refundDto.setStatus(1);
+		refundDao.updateRefund(refundDto);
+
+		// 退款成功后，更新订单状态为退款成功
+		orderDto.setRefundStatus(2);
+		orderDao.updateOrder(orderDto);
 	}
 
 	/**
