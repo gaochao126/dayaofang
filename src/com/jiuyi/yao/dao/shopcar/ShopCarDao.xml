@@ -24,7 +24,7 @@
 			<if test="format_id != null">
 				and a.format_id = #{format_id}
 			</if>
-			<if test="car_id ！= null">
+			<if test="car_id != null">
 				and a.car_id = #{car_id}
 			</if>
 	</select>
