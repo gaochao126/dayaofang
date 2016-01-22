@@ -56,13 +56,17 @@ public class CustomerServiceImpl implements CustomerService {
 		if (Util.isMobile(customerDto.getUser_tel()) == false) {
 			throw new BusinessException("请输入正确手机号");
 		}
-		List<CustomerDto> custs = customerDao.queryCustomer(customerDto);
-		if (custs != null && !custs.isEmpty() && custs.size() > 0) {
-			throw new BusinessException("手机号已被注册");
-		}
 
 		ResponseDto responseDto = new ResponseDto();
-		responseDto.setResultDesc("手机号未被注册");
+		responseDto.setResultDesc("查询成功");
+		Map<String, Object> map = new HashMap<String, Object>();
+		List<CustomerDto> custs = customerDao.queryCustomer(customerDto);
+		if (custs != null && !custs.isEmpty() && custs.size() > 0) {
+			map.put("isRegister", true);
+		} else {
+			map.put("isRegister", false);
+		}
+		responseDto.setDetail(map);
 		return responseDto;
 	}
 
