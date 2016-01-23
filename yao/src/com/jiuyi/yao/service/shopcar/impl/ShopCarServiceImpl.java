@@ -67,7 +67,9 @@ public class ShopCarServiceImpl implements ShopCarService {
 		}
 
 		ResponseDto responseDto = new ResponseDto();
-		responseDto.setDetail(totalCount);
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("totalCount", totalCount);
+		responseDto.setDetail(map);
 		responseDto.setResultDesc("购物车商品数量");
 		return responseDto;
 	}
@@ -352,7 +354,9 @@ public class ShopCarServiceImpl implements ShopCarService {
 		// 修改购物车购买状态0.不买， 1.买
 		shopCarDao.updateCarStatus(shopCarDto);
 		ResponseDto responseDto = new ResponseDto();
-		responseDto.setDetail(shopCarDto.getCar_status());
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("status", shopCarDto.getCar_status());
+		responseDto.setDetail(map);
 		responseDto.setResultDesc("成功");
 		return responseDto;
 	}
