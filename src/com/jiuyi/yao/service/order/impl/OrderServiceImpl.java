@@ -118,14 +118,15 @@ public class OrderServiceImpl implements OrderService {
 			order.setPayAmount(cars.get(i).getProd_price().multiply(new BigDecimal(cars.get(i).getBuy_count())));// 设置小计
 			totalAmount.add(order.getPayAmount());
 			orderDao.insertOrder(order);
-			System.out.println("添加成功一个");
 		}
 
 		// 删除购物车
 		shopCarDao.deleteShopCarBySomeCarId(orderDto.getCarIds());
 
 		ResponseDto responseDto = new ResponseDto();
-		responseDto.setDetail(outTradeNo);
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("outTradeNo", outTradeNo);
+		responseDto.setDetail(map);
 		responseDto.setResultDesc("提交订单成功");
 		return responseDto;
 	}
