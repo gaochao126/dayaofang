@@ -34,4 +34,5 @@ public interface DiscussDao {
 	 * @Date 2015年12月30日
 	 */
 	public List<DiscussDto> productDiscuss(DiscussDto discussDto) throws Exception;
+
 }

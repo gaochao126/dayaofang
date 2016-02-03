@@ -67,6 +67,8 @@ public class ProductDto extends BaseDto {
 	private int prod_xl;
 	private String format_id;
 
+	private FormatDto fromats;
+
 	/** 图片对象. */
 	private ImgDto imgDto;
 	private String img_id;
@@ -433,6 +435,14 @@ public class ProductDto extends BaseDto {
 
 	public void setImg_type(Integer img_type) {
 		this.img_type = img_type;
+	}
+
+	public FormatDto getFromats() {
+		return fromats;
+	}
+
+	public void setFromats(FormatDto fromats) {
+		this.fromats = fromats;
 	}
 
 }

@@ -10,65 +10,53 @@
     <script src="js/mui.min.js"></script>
     <link href="css/mui.min.css" rel="stylesheet"/>
     <script src="js/jquery.min.js"></script>
+    <script type="text/javascript" src="js/jquery-1.9.1.js"></script>
     <script type="text/javascript" charset="utf-8">
       	mui.init();
-var browser = {
-versions: function() {
-var u = navigator.userAgent, app = navigator.appVersion;
-return {//移动终端浏览器版本信息 
-mobile: !!u.match(/AppleWebKit.*Mobile.*/) || !!u.match(/AppleWebKit/), //是否为移动终端
-ios: !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/), //ios终端
-android: u.indexOf('Android') > -1 || u.indexOf('Linux') > -1, //android终端或者uc浏览器
-iPhone: u.indexOf('iPhone') > -1 || u.indexOf('Mac') > -1, //是否为iPhone或者QQHD浏览器
-iPad: u.indexOf('iPad') > -1, //是否iPad
-webApp: u.indexOf('Safari') == -1 //是否web应该程序，没有头部与底部
-};
-}(),
-language: (navigator.browserLanguage || navigator.language).toLowerCase()
-}
-//判断终端为android时，传递规格参数
-
-//	alert(" android终端: " + browser.versions.android);
+		var browser = {
+			versions: function() {
+			var u = navigator.userAgent, app = navigator.appVersion;
+				return {//移动终端浏览器版本信息 
+				mobile: !!u.match(/AppleWebKit.*Mobile.*/) || !!u.match(/AppleWebKit/), //是否为移动终端
+				ios: !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/), //ios终端
+				android: u.indexOf('Android') > -1 || u.indexOf('Linux') > -1, //android终端或者uc浏览器
+				iPhone: u.indexOf('iPhone') > -1 || u.indexOf('Mac') > -1, //是否为iPhone或者QQHD浏览器
+				iPad: u.indexOf('iPad') > -1, //是否iPad
+				webApp: u.indexOf('Safari') == -1 //是否web应该程序，没有头部与底部
+				};
+			}(),
+			language: (navigator.browserLanguage || navigator.language).toLowerCase()
+		}
+	//判断终端为android时，传递规格参数
+	//	alert(" android终端: " + browser.versions.android);
 	function showHtmlcallJava2(obj){
-		//alert(obj);
 		if(browser.versions.android==true){
-			var str = window.jsObj.HtmlcallJava(obj);
-			//alert(str);
-			
+			var str = window.jsObj.HtmlcallJava(obj); 
 			var price = document.getElementById(obj).value;
 
 			$(document).ready(function(){
-    		var format = $("[name="+obj+"]").val();
-    		document.getElementById("trueformat").innerHTML=format;	
+    			var format =  $("input[name="+obj+"]").val();
+    			$("#trueformat").html("");
+				$("#trueformat").html(format);
     		})
-		
 			var zhekou = document.getElementById("nihid").value;
-				
 			var newprice = zhekou * price;
-
-			document.getElementById("newprice").innerHTML="￥"+newprice;
-			document.getElementById("oldprice").innerHTML="￥"+price;
-		
+			$("#newprice").html(newprice);
+			$("#oldprice").html(price);
 		}
 		//判断终端为IOS时，传递规格参数
 		else if(browser.versions.ios==true){
-			//	alert(" ios终端: " + browser.versions.ios);
 			var str = ABC.HtmlcallJava(obj);
-			
 			var price = document.getElementById(obj).value;
-
 			$(document).ready(function(){
-    		var format = $("[name="+obj+"]").val();
-    		document.getElementById("trueformat").innerHTML=format;	
+				var format =  $("input[name="+obj+"]").val();
+				$("#trueformat").html("");
+				$("#trueformat").html(format);
     		})
-		
 			var zhekou = document.getElementById("nihid").value;
-				
 			var newprice = zhekou * price;
-
-			document.getElementById("newprice").innerHTML="￥"+newprice;
-			document.getElementById("oldprice").innerHTML="￥"+price;
-			
+			$("#newprice").html(newprice);
+			$("#oldprice").html(price);
 		}
 	}
 	function get(obj){
@@ -84,8 +72,8 @@ language: (navigator.browserLanguage || navigator.language).toLowerCase()
 				
 			var newprice = zhekou * price;
 
-			document.getElementById("newprice").innerHTML="￥"+newprice;
-			document.getElementById("oldprice").innerHTML="￥"+price;
+			$("#newprice").html(newprice);
+			$("#oldprice").html(price);
 	}
 
 
@@ -112,7 +100,7 @@ language: (navigator.browserLanguage || navigator.language).toLowerCase()
     
     	
     </script>
-<style>
+	<style>
     	.li_style{margin-left: -14px; padding-left:27px; font-size: 14px;}
     	.tab_style{width: 100%;border: solid thin #CCCCCC; color: #999999;}
     	.tr_style{background-color: #DFF0D8; }
@@ -145,48 +133,42 @@ language: (navigator.browserLanguage || navigator.language).toLowerCase()
 </head>
 <body>
 	<div class="mui-content">
-	<div id="slider" class="mui-slider" style="background-color:#FCECD2; text-align: center;">
-			<div class="mui-slider-group mui-slider-loop">
-			<div class="mui-slider-item">
-					<img style="height: 200px;" src="images/<s:property value="prod.img.img1_src"/>" />
+		<div id="slider" class="mui-slider" style="background-color:#FCECD2; text-align: center;">
+				<div class="mui-slider-group mui-slider-loop">
+					<s:iterator value="dataObj.detail.img">
+						<div class="mui-slider-item">
+							<img style="height: 200px;" src="<s:property value="img_src"/>" />
+						</div>
+					</s:iterator>
 				</div>
-				<div class="mui-slider-item">
-					<img style="height: 200px;" src="images/<s:property value="prod.img.img1_src"/>" />
-				</div>
-				<div class="mui-slider-item">
-					<img style="height: 200px;" src="images/<s:property value="prod.img.img1_src"/>" />
-				</div>
-				<div class="mui-slider-item">
-					<img style="height: 200px;" src="images/<s:property value="prod.img.img1_src"/>" />
+				<div class="mui-slider-indicator">
+				<%-- <s:iterator value="img" status="v">
+					<s:if test="v.index == 0">
+						<div class="mui-indicator mui-active"></div>
+					</s:if>
+					<s:else>
+						<div class="mui-indicator"></div>
+					</s:else>
+				</s:iterator> --%>
 				</div>
 				
-			</div>
-			<div class="mui-slider-indicator">
-				<div class="mui-indicator mui-active"></div>
-				<div class="mui-indicator"></div>
-			</div>
-			
-	</div>
-	<div class="mui-content" style="margin-top: -10px;">
+		</div>
+		<div class="mui-content" style="margin-top: -10px;">
 		<ul class="mui-table-view">
 				
                 <li id="1stli" class="mui-table-view-cell li_style">
-					<span id="newprice" style="color: #FF0000;font-size: 16px;">￥<fmt:formatNumber value="${prod.prod_discount*prod.formats.prod_price}" pattern="#0.00"/></span><br>
-					<span id="oldprice"  style="color:#999999; text-decoration: line-through;margin-right: 15px;">￥<fmt:formatNumber value="${prod.formats.prod_price}" pattern="#0.00"/></span>
-					<%--节省了<span>￥<fmt:formatNumber value="${prod.formats.prod_price-prod.prod_discount*prod.formats.prod_price}" pattern="#0.00"/></span>--%>
+                	<!-- 现价 -->
+					<span id="newprice" style="color: #FF0000;font-size: 16px;">￥<fmt:formatNumber value="${dataObj.detail.prod.prod_discount*dataObj.detail.prod.prod_price}" pattern="#0.00"/></span><br>
+					<!-- 原价 -->
+					<span id="oldprice"  style="color:#999999; text-decoration: line-through;margin-right: 15px;">￥<fmt:formatNumber value="${dataObj.detail.prod.prod_price}" pattern="#0.00"/></span>
 				</li>
                 
-                <input id="nihid" type="hidden" name="discount" value="<s:property value="prod.prod_discount"/>" />
-              	<%--  <li id="enli" style="display:none" class="mui-table-view-cell li_style">
-					<span style="color: #FF0000;font-size: 16px;">￥<fmt:formatNumber value="${prod.prod_discount*prod.formats.prod_price}" pattern="#0.00"/></span><br>
-					<span style="color:#999999; text-decoration: line-through;margin-right: 15px;">￥<fmt:formatNumber value="${prod.formats.prod_price}" pattern="#0.00"/></span>
-					节省了<span>￥<fmt:formatNumber value="${prod.formats.prod_price-prod.prod_discount*prod.formats.prod_price}" pattern="#0.00"/></span>
-				</li>--%>
+                <input id="nihid" type="hidden" name="discount" value="<s:property value="dataObj.detail.prod.prod_discount"/>" />
                 
 				<li class="mui-table-view-cell li_style">
-				<span style="font-size: 16px; font-weight: bold;"><s:property value="prod.prod_name"/></span><br>
-				<span  style="color: #999999;">规格 ：<span id="trueformat"><s:property value="prod.formats.prod_format"/></span></span><br>
-				<span style="color: #999999;">厂家 ：<s:property value="prod.prod_chandi"/></span>
+				<span style="font-size: 16px; font-weight: bold;"><s:property value="dataObj.detail.prod.prod_name"/></span><br>
+				<span  style="color: #999999;">规格 ：<span id="trueformat"><s:property value="dataObj.detail.prod.prod_format"/></span></span><br>
+				<span style="color: #999999;">厂家 ：<s:property value="dataObj.detail.prod.prod_chandi"/></span>
 				</li>
                 
 				<li class="mui-table-view-cell li_style">
@@ -203,47 +185,47 @@ language: (navigator.browserLanguage || navigator.language).toLowerCase()
 						<table class="tab_style">
 							<tr class="tr_style">
 								<td class="td1_style">名称</td>
-								<td class="td2_style"><s:property value="prod.prod_name"/></td>
+								<td class="td2_style"><s:property value="dataObj.detail.prod.prod_name"/></td>
 							</tr>
 							<tr>
 								<td class="td1_style">规格</td>
-								<td class="td2_style"><s:property value="prod.prod_format"/></td>
+								<td class="td2_style"><s:property value="dataObj.detail.prod.prod_format"/></td>
 							</tr>
 							<tr class="tr_style">
 								<td class="td1_style">主要成分</td>
-								<td class="td2_style"><s:property value="prod.prod_chengfen"/></td>
+								<td class="td2_style"><s:property value="dataObj.detail.prod.prod_chengfen"/></td>
 							</tr>
 							<tr>
 								<td class="td1_style">主治功能</td>
-								<td class="td2_style"><s:property value="prod.prod_function"/></td>
+								<td class="td2_style"><s:property value="dataObj.detail.prod.prod_function"/></td>
 							</tr>
 							<tr class="tr_style">
 								<td class="td1_style">用法用量</td>
-								<td class="td2_style"><s:property value="prod.prod_usage"/></td>
+								<td class="td2_style"><s:property value="dataObj.detail.prod.prod_usage"/></td>
 							</tr>
 							<tr>
 								<td class="td1_style">存储条件</td>
-								<td class="td2_style"><s:property value="prod.prod_storage"/></td>
+								<td class="td2_style"><s:property value="dataObj.detail.prod.prod_storage"/></td>
 							</tr>
 							<tr class="tr_style">
 								<td class="td1_style">包装</td>
-								<td class="td2_style"><s:property value="prod.prod_pack"/></td>
+								<td class="td2_style"><s:property value="dataObj.detail.prod.prod_pack"/></td>
 							</tr>
 							<tr>
 								<td class="td1_style">不良反应</td>
-								<td class="td2_style"><s:property value="prod.prod_bad"/></td>
+								<td class="td2_style"><s:property value="dataObj.detail.prod.prod_bad"/></td>
 							</tr>
 							<tr class="tr_style">
 								<td class="td1_style">批准文号</td>
-								<td class="td2_style"><s:property value="prod.prod_certno"/></td>
+								<td class="td2_style"><s:property value="dataObj.detail.prod.prod_certno"/></td>
 							</tr>
 							<tr>
 								<td class="td1_style">生产企业</td>
-								<td class="td2_style"><s:property value="prod_chandi"/></td>
+								<td class="td2_style"><s:property value="dataObj.detail.prod_chandi"/></td>
 							</tr>
 							<tr class="tr_style">
 								<td class="td1_style">有效期</td>
-								<td class="td2_style"><s:property value="prod.prod_keepdate"/></td>
+								<td class="td2_style"><s:property value="dataObj.detail.prod.prod_keepdate"/></td>
 							</tr>
 						</table>
 						
@@ -257,22 +239,22 @@ language: (navigator.browserLanguage || navigator.language).toLowerCase()
 					<div class="mui-collapse-content">
 						<div id="segmentedControl" class="mui-segmented-control" style="border: solid thin #008A3A;">
 							<a class="mui-control-item mui-active" href="#all">
-								全部(<s:property value="allvalue"/>)
+								全部(<s:property value="dataObj.detail.allvalue"/>)
 							</a>
 							<a class="mui-control-item" href="#nice">
-								好评(<s:property value="goodvalue"/>)
+								好评(<s:property value="dataObj.detail.goodvalue"/>)
 							</a>
 							<a class="mui-control-item" href="#medium">
-								中评(<s:property value="medilvalue"/>)
+								中评(<s:property value="dataObj.detail.medilvalue"/>)
 							</a>
 							<a class="mui-control-item" href="#bad">
-								差评(<s:property value="badvalue"/>)
+								差评(<s:property value="dataObj.detail.badvalue"/>)
 							</a>
 						</div>
 						<div class="mui-content-padded">
 							<div id="all" class="mui-control-content mui-active">
 								<ul class="mui-table-view" style="margin-top: -10px;">
-								<s:iterator value="allDiscuss">
+								<s:iterator value="dataObj.detail.allDiscuss">
 									<li class="mui-table-view-cell" style="margin-left: -20px;">
 										<span>评分：<s:property value="prod_score"/></span>
 										<span style="color: #FFFF00;">
@@ -294,7 +276,7 @@ language: (navigator.browserLanguage || navigator.language).toLowerCase()
 							
 							<div id="nice" class="mui-control-content">
 							<ul class="mui-table-view">
-							<s:iterator value="goodDiscuss">
+							<s:iterator value="dataObj.detail.goodDiscuss">
 								<li class="mui-table-view-cell" style="margin-left: -20px;">
 										<span>评分：<s:property value="prod_score"/></span>
 										<span style="color: #FFFF00;">
@@ -316,7 +298,7 @@ language: (navigator.browserLanguage || navigator.language).toLowerCase()
 							
 							<div id="medium" class="mui-control-content">
 							<ul class="mui-table-view">
-							 <s:iterator value="midelDiscuss">
+							 <s:iterator value="dataObj.detail.midelDiscuss">
 								<li class="mui-table-view-cell" style="margin-left: -20px;">
 										<span>评分：<s:property value="prod_score"/></span>
 										<span style="color: #FFFF00;">
@@ -338,7 +320,7 @@ language: (navigator.browserLanguage || navigator.language).toLowerCase()
 							
 							<div id="bad" class="mui-control-content">
 								<ul class="mui-table-view">
-									<s:iterator value="badDiscuss">
+									<s:iterator value="dataObj.detail.badDiscuss">
 										<li class="mui-table-view-cell" style="margin-left: -20px;">
 										<span>评分：<s:property value="prod_score"/></span>
 										<span style="color: #FFFF00;">
@@ -368,53 +350,23 @@ language: (navigator.browserLanguage || navigator.language).toLowerCase()
 					
 				</li>
 			</ul>
+			<!-- 选择规格弹出层 -->
 			<div id="picture" class="mui-popover mui-popover-action mui-popover-bottom">
-				<%--<ul class="mui-table-view"> 
-				<li class="mui-table-view-cell mui-col-xs-12" style="float:left;">
-					<img class="mui-pull-left spe_img" src="images/<s:property value="prod.img.img1_src"/>">
-					<div class="spe_price">
-						<s:iterator value="formats" status='st'>
-							￥<s:if test="#st.first"><s:property value="prod_price"/></s:if>-
-							￥<s:if test="#st.last"><s:property value="prod_price"/></s:if>
-						</s:iterator>
-						
-						
-					</div>
-					
-					</li>
-			</ul>--%>
-			<ul class="mui-table-view" style="background-color: #FFFFFF;" id="ul_spe">
-					<s:iterator value="formats">
-					
+				<ul class="mui-table-view" style="background-color: #FFFFFF;" id="ul_spe">
+					<s:iterator value="dataObj.detail.formats">
 						<li class="mui-radio mui-right mui-col-xs-12 spe_detail_unch" name="li_spe"  style="background-color:#DDD; margin-top:2px;"  >
-						
-						<span name="span_spe1" style="display:block; width:100%; height:100%;" onclick='showHtmlcallJava2(<s:property value="format_id"/>+"")'> ￥  <s:property value="prod_price"/>&nbsp;&nbsp;<s:property value="prod_format"/> </span>
-						<%--<span name="span_spe2" style="color:#F00" >￥: <s:property value="prod_price"/></span>
-						--%><input id="<s:property value="format_id"/>" type="hidden" name="price" value="<s:property value="prod_price"/>" />
+						<span id = "spanP" name="span_spe1" style="display:block; width:100%; height:100%;" onclick='showHtmlcallJava2(<s:property value="format_id"/>+"")'> ￥  <s:property value="prod_price"/>&nbsp;&nbsp;<s:property value="prod_format"/> </span>
+						<input id="<s:property value="format_id"/>" type="hidden" name="price" value="<s:property value="prod_price"/>" />
 						<input type="hidden" name="<s:property value="format_id"/>" value="<s:property value="prod_format"/>" />
 						</li>
 					</s:iterator>
-					<!--<li class="mui-radio mui-right mui-col-xs-4 spe_detail_unch">
-						<span name="span_spe">3g*5袋</span>
+				</ul>
+				<ul class="mui-table-view">
+					<li class="mui-table-view-cell">
+						<a href="#picture" style="color:#FFF; font-size:18px; background-color:#3C844B"><b>确定</b></a>
 					</li>
-					<li class="mui-radio mui-right mui-col-xs-4 spe_detail_unch">
-						<span name="span_spe">8g*10袋</span>
-						
-					</li>
-					<li class="mui-radio mui-right mui-col-xs-4 spe_detail_unch">
-						<span name="span_spe">9g*12袋</span>
-					</li>
-					<li class="mui-radio mui-right mui-col-xs-4 spe_detail_unch">
-						<span name="span_spe">8g*12袋</span>
-					</li>
-			--></ul>
-			
-			<ul class="mui-table-view">
-				<li class="mui-table-view-cell">
-					<a href="#picture" style="color:#FFF; font-size:18px; background-color:#3C844B"><b>确定</b></a>
-				</li>
-			</ul>
-		</div>
+				</ul>
+			</div>
 	</div>
 	<!--
     	作者：1016818475@qq.com
