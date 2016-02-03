@@ -1,4 +1,3 @@
-<%@ page language="java" import="java.lang.*" pageEncoding="utf-8"%>
 <!doctype html>
 <html lang="en">
  <head>

@@ -26,6 +26,7 @@ public class DiscussDto extends BaseDto {
 	private Integer dis_status;
 	private Integer anmou_status;
 	private String order_id;
+	private Integer type;// 0好评,1中评,2差评
 
 	public String getDis_id() {
 		return dis_id;
@@ -137,6 +138,14 @@ public class DiscussDto extends BaseDto {
 
 	public void setOrder_id(String order_id) {
 		this.order_id = order_id;
+	}
+
+	public Integer getType() {
+		return type;
+	}
+
+	public void setType(Integer type) {
+		this.type = type;
 	}
 
 }

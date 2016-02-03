@@ -17,7 +17,20 @@
 	
 	<!-- 2.查询商品评论 -->
 	<select id="productDiscuss" parameterType="DiscussDto" resultType="DiscussDto">
-		select * from Discuss where prod_id = #{prod_id}
+		select * from Discuss where 1
+		<if test="prod_id != null">
+			and prod_id = #{prod_id}
+		</if>
+		<if test="type != null and type ==0">
+			and prod_score &gt; 3 
+		</if>
+		<if test="type != null and type ==1">
+			and prod_score &gt; 1 and prod_score &lt; 4 
+		</if>
+		<if test="type != null and type ==2">
+			and prod_score &lt; 2 
+		</if>
+		
 	</select>
 	
 </mapper>

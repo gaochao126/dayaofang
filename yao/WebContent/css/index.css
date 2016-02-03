@@ -1,0 +1,20 @@
+.footer_unclick{
+	background-color:#008A3A;
+	color:#FFFFFF;
+	}
+.footer_click{
+	background-color:#25A74D;
+	color:#FFF;
+	}
+.index_title_text{
+	color:#008A3A; 
+	margin-left: 5px; 
+	margin-top: -10px;
+	color:#008A3A; 
+	font-weight: bold;
+	}
+	
+.test{
+	padding-right: 5px; margin-bottom: 5px; margin-top: 5px;
+	
+}

@@ -1,5 +1,6 @@
 package com.jiuyi.yao.service.product.impl;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -10,9 +11,15 @@ import org.springframework.stereotype.Service;
 import com.jiuyi.yao.common.dict.Constants;
 import com.jiuyi.yao.common.util.Enumerate;
 import com.jiuyi.yao.common.util.Util;
+import com.jiuyi.yao.dao.discuss.DiscussDao;
+import com.jiuyi.yao.dao.product.FormatDao;
+import com.jiuyi.yao.dao.product.ImgDao;
 import com.jiuyi.yao.dao.product.ProductDao;
 import com.jiuyi.yao.dto.Page;
 import com.jiuyi.yao.dto.common.ResponseDto;
+import com.jiuyi.yao.dto.discuss.DiscussDto;
+import com.jiuyi.yao.dto.product.FormatDto;
+import com.jiuyi.yao.dto.product.ImgDto;
 import com.jiuyi.yao.dto.product.ProductDto;
 import com.jiuyi.yao.service.BusinessException;
 import com.jiuyi.yao.service.product.ProductService;
@@ -29,6 +36,15 @@ public class ProductServiceImpl implements ProductService {
 
 	@Autowired
 	private ProductDao productDao;
+
+	@Autowired
+	private ImgDao imgDao;
+
+	@Autowired
+	private DiscussDao discussDao;
+
+	@Autowired
+	private FormatDao formatDao;
 
 	/**
 	 * 
@@ -231,6 +247,104 @@ public class ProductServiceImpl implements ProductService {
 		map.put("lungList", lungList);
 		responseDto.setDetail(map);
 		responseDto.setResultDesc("首页商品列表");
+		return responseDto;
+	}
+
+	/**
+	 * 
+	 * @number	6		@description	去商品详情
+	 * 
+	 * @param productDto
+	 * @return
+	 * @throws Exception
+	 *
+	 * @Date 2016年2月3日
+	 */
+	@Override
+	public ResponseDto prodInfo(ProductDto productDto) throws Exception {
+		if (productDto == null) {
+			throw new BusinessException(Constants.DATA_ERROR);
+		}
+		if (!Util.isNotEmpty(productDto.getProd_id())) {
+			throw new BusinessException("商品id不能为空");
+		}
+		
+		/** 获得商品对象 */
+		List<ProductDto> products = productDao.queryProductList(productDto);
+		ProductDto prod  = new ProductDto();
+		if(products != null && !products.isEmpty()){
+			prod = products.get(0);
+		}
+		
+		ImgDto imgDto = new ImgDto();
+		imgDto.setProd_id(productDto.getProd_id());
+		List<ImgDto> img = imgDao.queryImgByProductId(imgDto);
+
+		for (int i = 0; i < img.size(); i++) {
+			if (img.get(i).getImg_src().startsWith("http://")) {
+				continue;
+			} else {
+				img.get(i).setImg_src(Enumerate.IMG_SRC + img.get(i).getImg_src());
+			}
+		}
+
+		/** 获得该商品的评论 */
+		DiscussDto discussDto = new DiscussDto();
+		discussDto.setProd_id(productDto.getProd_id());
+		List<DiscussDto> allDiscuss = discussDao.productDiscuss(discussDto);
+		Integer allvalue = allDiscuss.size();
+
+		List<DiscussDto> goodDiscuss = new ArrayList<DiscussDto>();
+		List<DiscussDto> midelDiscuss = new ArrayList<DiscussDto>();
+		List<DiscussDto> badDiscuss = new ArrayList<DiscussDto>();
+		for (int i = 0; i < allvalue; i++) {
+			if (allDiscuss.get(i).getProd_score() > 3) {
+				goodDiscuss.add(allDiscuss.get(i));
+			}
+			if (allDiscuss.get(i).getProd_score() > 1 && allDiscuss.get(i).getProd_score() < 4) {
+				midelDiscuss.add(allDiscuss.get(i));
+			}
+			if (allDiscuss.get(i).getProd_score() < 2) {
+				badDiscuss.add(allDiscuss.get(i));
+			}
+		}
+
+		/** 获得好评 */
+		Integer goodvalue = goodDiscuss.size();
+
+		/** 获得中评 */
+		Integer medilvalue = midelDiscuss.size();
+
+		/** 获得差评 */
+		Integer badvalue = badDiscuss.size();
+
+		/** 得到商品规格 */
+		FormatDto formatDto = new FormatDto();
+		formatDto.setProd_id(productDto.getProd_id());
+		List<FormatDto> formats = formatDao.queryFormatByProductId(formatDto);
+		
+		for (int j = 0; j < formats.size(); j++) {
+			System.out.println("发现想到");
+			if (formats.get(j).getFormat_id().equals(prod.getFormat_id())) {
+				prod.setProd_price(formats.get(j).getProd_price());
+				prod.setProd_format(formats.get(j).getProd_format());
+			}
+		}
+		ResponseDto responseDto = new ResponseDto();
+		Map<String, Object> map = new HashMap<String,Object>();
+		map.put("prod", prod);
+		map.put("img", img);
+		map.put("allDiscuss", allDiscuss);
+		map.put("allvalue", allvalue);
+		map.put("goodDiscuss", goodDiscuss);
+		map.put("goodvalue", goodvalue);
+		map.put("midelDiscuss", midelDiscuss);
+		map.put("medilvalue", medilvalue);
+		map.put("badDiscuss", badDiscuss);
+		map.put("badvalue", badvalue);
+		map.put("formats", formats);
+		responseDto.setDetail(map);
+		responseDto.setResultDesc("商品详情");
 		return responseDto;
 	}
 }

@@ -71,4 +71,16 @@ public interface ProductService {
 	 */
 	public ResponseDto queryIndexProductList(ProductDto productDto) throws Exception;
 
+	/**
+	 * 
+	 * @number	6		@description	去商品详情
+	 * 
+	 * @param productDto
+	 * @return
+	 * @throws Exception
+	 *
+	 * @Date 2016年2月3日
+	 */
+	public ResponseDto prodInfo(ProductDto productDto) throws Exception;
+
 }
