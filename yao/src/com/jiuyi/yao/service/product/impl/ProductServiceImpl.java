@@ -62,6 +62,7 @@ public class ProductServiceImpl implements ProductService {
 		for (int i = 0; i < products.size(); i++) {
 			if (Util.isNotEmpty(products.get(i).getImg_src())) {
 				products.get(i).setImg_src(Enumerate.IMG_SRC + products.get(i).getImg_src());
+				products.get(i).setToindex(Enumerate.INFO_PROD + products.get(i).getProd_id());
 			}
 		}
 		ResponseDto responseDto = new ResponseDto();
@@ -96,6 +97,7 @@ public class ProductServiceImpl implements ProductService {
 		for (int i = 0; i < products.size(); i++) {
 			if (Util.isNotEmpty(products.get(i).getImg_src())) {
 				products.get(i).setImg_src(Enumerate.IMG_SRC + products.get(i).getImg_src());
+				products.get(i).setToindex(Enumerate.INFO_PROD + products.get(i).getProd_id());
 			}
 		}
 		ResponseDto responseDto = new ResponseDto();
@@ -130,6 +132,7 @@ public class ProductServiceImpl implements ProductService {
 		for (int i = 0; i < products.size(); i++) {
 			if (Util.isNotEmpty(products.get(i).getImg_src())) {
 				products.get(i).setImg_src(Enumerate.IMG_SRC + products.get(i).getImg_src());
+				products.get(i).setToindex(Enumerate.INFO_PROD + products.get(i).getProd_id());
 			}
 		}
 		ResponseDto responseDto = new ResponseDto();
@@ -163,6 +166,7 @@ public class ProductServiceImpl implements ProductService {
 		for (int i = 0; i < products.size(); i++) {
 			if (Util.isNotEmpty(products.get(i).getImg_src())) {
 				products.get(i).setImg_src(Enumerate.IMG_SRC + products.get(i).getImg_src());
+				products.get(i).setToindex(Enumerate.INFO_PROD + products.get(i).getProd_id());
 			}
 		}
 		ResponseDto responseDto = new ResponseDto();
@@ -191,6 +195,7 @@ public class ProductServiceImpl implements ProductService {
 		for (int i = 0; i < showProd.size(); i++) {
 			if (Util.isNotEmpty(showProd.get(i).getImg_src())) {
 				showProd.get(i).setImg_src(Enumerate.IMG_SRC + showProd.get(i).getImg_src());
+				showProd.get(i).setToindex(Enumerate.INFO_PROD + showProd.get(i).getProd_id());
 			}
 		}
 		Page page = new Page();
@@ -205,6 +210,7 @@ public class ProductServiceImpl implements ProductService {
 		for (int i = 0; i < stomachList.size(); i++) {
 			if (Util.isNotEmpty(showProd.get(i).getImg_src())) {
 				stomachList.get(i).setImg_src(Enumerate.IMG_SRC + stomachList.get(i).getImg_src());
+				stomachList.get(i).setToindex(Enumerate.INFO_PROD + stomachList.get(i).getProd_id());
 			}
 		}
 		/** 查询养肝药品. */
@@ -215,6 +221,7 @@ public class ProductServiceImpl implements ProductService {
 		for (int i = 0; i < liverList.size(); i++) {
 			if (Util.isNotEmpty(showProd.get(i).getImg_src())) {
 				liverList.get(i).setImg_src(Enumerate.IMG_SRC + liverList.get(i).getImg_src());
+				liverList.get(i).setToindex(Enumerate.INFO_PROD + liverList.get(i).getProd_id());
 			}
 		}
 		/** 查询心脑血管药品. */
@@ -225,6 +232,7 @@ public class ProductServiceImpl implements ProductService {
 		for (int i = 0; i < heartList.size(); i++) {
 			if (Util.isNotEmpty(showProd.get(i).getImg_src())) {
 				heartList.get(i).setImg_src(Enumerate.IMG_SRC + heartList.get(i).getImg_src());
+				heartList.get(i).setToindex(Enumerate.INFO_PROD + heartList.get(i).getProd_id());
 			}
 		}
 		/** 止咳养肺. */
@@ -235,6 +243,7 @@ public class ProductServiceImpl implements ProductService {
 		for (int i = 0; i < lungList.size(); i++) {
 			if (Util.isNotEmpty(showProd.get(i).getImg_src())) {
 				lungList.get(i).setImg_src(Enumerate.IMG_SRC + lungList.get(i).getImg_src());
+				lungList.get(i).setToindex(Enumerate.INFO_PROD + lungList.get(i).getProd_id());
 			}
 		}
 
