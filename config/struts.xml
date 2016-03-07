@@ -8,7 +8,7 @@
     <constant name="struts.configuration.xml.reload" value="true" />
     <constant name="struts.objectFactory" value="spring"/>
     <constant name="struts.ognl.allowStaticMethodAccess" value="true" />
-    <constant name="struts.action.extension" value="html" /> 
+    <constant name="struts.action.extension" value="action" /> 
 	
     <package name="default" extends="struts-default" namespace="/">
     	<action name="prod_*" class="com.jiuyi.yao.action.product.ProductAction" method="{1}">

@@ -55,8 +55,8 @@
 	</filter>
 	<filter-mapping>
 		<filter-name>struts2</filter-name>
-		<url-pattern>/*</url-pattern>
-	</filter-mapping>
+		<url-pattern>*.action</url-pattern>
+	</filter-mapping> 
 	
 	<!-- 文件上传 -->
 	<servlet>  

@@ -50,7 +50,7 @@ public class Enumerate {
 	public final static String HEAD_URL = "http://222.180.171.34:51105/voice/head/";
 
 	/** 商品详情连接 */
-	public final static String INFO_PROD = "http://222.180.171.34:51105/yao/prod_toInformation.html?productDto.prod_id=";
+	public final static String INFO_PROD = "http://222.180.171.34:51105/yao/prod_toInformation.action?productDto.prod_id=";
 
 	/** 注册协议地址 */
 	public final static String REGISTER_SRC = "http://222.180.171.34:51105/jiuyishop/agreement.jsp";
